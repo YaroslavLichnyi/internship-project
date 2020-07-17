@@ -7,7 +7,7 @@
     android:padding="10dp">
 
     <TextView
-        android:id="@+id/filmName"
+        android:id="@+id/film_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
@@ -18,14 +18,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/year"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-        android:text="Description"
+        android:text="duration"
+        android:textColor="#5A1616"
         android:textStyle="italic"
-        app:layout_constraintStart_toStartOf="@+id/filmName"
-        app:layout_constraintTop_toBottomOf="@+id/filmName" />
+        app:layout_constraintStart_toStartOf="@+id/film_title"
+        app:layout_constraintTop_toBottomOf="@+id/film_title" />
 
     <ImageView
         android:id="@+id/imageView"

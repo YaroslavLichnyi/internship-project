@@ -4,19 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.MainActivity">
 
-  <!--  <fragment
+    <!--
+    <fragment
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/main_graph"
-        tools:layout_editor_absoluteX="111dp"
-        tools:layout_editor_absoluteY="90dp" />
+        app:navGraph="@navigation/main_graph" />
         -->
-    <include layout="@layout/fragment_recycler_view"></include>
 
+    <include
+        layout="@layout/fragment_recycler_view"
+        android:layout_width="409dp"
+        android:layout_height="729dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

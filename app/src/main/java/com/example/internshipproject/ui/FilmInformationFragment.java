@@ -1,4 +1,4 @@
-package com.example.internshipproject;
+package com.example.internshipproject.ui;
 
 import android.os.Bundle;
 
@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-public class RecyclerViewFragment extends Fragment {
+public class FilmInformationFragment extends Fragment {
 
 
 }

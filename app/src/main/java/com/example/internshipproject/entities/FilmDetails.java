@@ -1,9 +1,9 @@
-package com.example.internshipproject;
+package com.example.internshipproject.entities;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Film {
+public class FilmDetails {
     @SerializedName("Title")
     @Expose
     private String title;

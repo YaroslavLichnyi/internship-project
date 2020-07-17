@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorDarkBackground"
+    tools:context=".ui.FilmInformationFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/poster_photo"
+                android:layout_width="0dp"
+                android:layout_height="400dp"
+                android:foreground="@drawable/ic_photo_gradient"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="Film name"
+                android:textColor="#C1C1C1"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/poster_photo"
+                app:layout_constraintEnd_toStartOf="@+id/description_details"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/poster_photo"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <Button
+                android:id="@+id/description_details"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/btn_semi_transperent_round"
+                android:drawableLeft="@drawable/ic_baseline_description_24"
+                android:paddingStart="13dp"
+                app:layout_constraintBottom_toBottomOf="@+id/title_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/title_text" />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/btn_semi_transperent_round"
+                android:drawableLeft="@drawable/ic_baseline_arrow_back_24"
+                android:paddingStart="13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif-light"
+                android:shadowColor="#BFBFBF"
+                android:text="Year:"
+                android:textAlignment="viewEnd"
+                android:textAllCaps="false"
+                android:textColor="#8A8A8A"
+                android:textSize="18sp"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toEndOf="@+id/released"
+                app:layout_constraintTop_toBottomOf="@+id/title_text" />
+
+            <TextView
+                android:id="@+id/released"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="sans-serif-light"
+                android:shadowColor="#BFBFBF"
+                android:text="Released:"
+                android:textAlignment="viewEnd"
+                android:textAllCaps="false"
+                android:textColor="#8A8A8A"
+                android:textSize="18sp"
+                android:textStyle="italic"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/year_text" />
+
+            <TextView
+                android:id="@+id/genre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="sans-serif-light"
+                android:shadowColor="#BFBFBF"
+                android:text="Genre:"
+                android:textAlignment="viewEnd"
+                android:textAllCaps="false"
+                android:textColor="#8A8A8A"
+                android:textSize="18sp"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toEndOf="@+id/runtime"
+                app:layout_constraintTop_toBottomOf="@+id/genre_text" />
+
+            <TextView
+                android:id="@+id/writer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="sans-serif-light"
+                android:shadowColor="#BFBFBF"
+                android:text="Writer:"
+                android:textAlignment="viewEnd"
+                android:textAllCaps="false"
+                android:textColor="#8A8A8A"
+                android:textSize="18sp"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toEndOf="@+id/director"
+                app:layout_constraintTop_toBottomOf="@+id/writer_text" />
+
+            <TextView
+                android:id="@+id/director"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="sans-serif-light"
+                android:shadowColor="#BFBFBF"
+                android:text="Director:"
+                android:textAlignment="viewEnd"
+                android:textAllCaps="false"
+                android:textColor="#8A8A8A"
+                android:textSize="18sp"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toEndOf="@+id/genre"
+                app:layout_constraintTop_toBottomOf="@+id/director_text" />
+
+            <TextView
+                android:id="@+id/runtime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="sans-serif-light"
+                android:shadowColor="#BFBFBF"
+                android:text="Runtime:"
+                android:textAlignment="viewEnd"
+                android:textAllCaps="false"
+                android:textColor="#8A8A8A"
+                android:textSize="18sp"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toEndOf="@+id/released"
+                app:layout_constraintTop_toBottomOf="@+id/runtime_text" />
+
+            <TextView
+                android:id="@+id/year_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:shadowColor="#BFBFBF"
+                android:text="TextView"
+                android:textColor="#BCBCBC"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/year"
+                app:layout_constraintTop_toTopOf="@+id/year" />
+
+            <TextView
+                android:id="@+id/actors_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:shadowColor="#BFBFBF"
+                android:text="TextView"
+                android:textColor="#BCBCBC"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/actors"
+                app:layout_constraintTop_toTopOf="@+id/actors" />
+
+            <TextView
+                android:id="@+id/director_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:shadowColor="#BFBFBF"
+                android:text="TextView"
+                android:textColor="#BCBCBC"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/genre"
+                app:layout_constraintTop_toTopOf="@+id/genre" />
+
+            <TextView
+                android:id="@+id/runtime_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:shadowColor="#BFBFBF"
+                android:text="TextView"
+                android:textColor="#BCBCBC"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/released"
+                app:layout_constraintTop_toTopOf="@+id/released" />
+
+            <TextView
+                android:id="@+id/writer_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:shadowColor="#BFBFBF"
+                android:text="TextView"
+                android:textColor="#BCBCBC"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/director"
+                app:layout_constraintTop_toTopOf="@+id/director" />
+
+            <TextView
+                android:id="@+id/genre_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:shadowColor="#BFBFBF"
+                android:text="TextView"
+                android:textColor="#BCBCBC"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/runtime"
+                app:layout_constraintTop_toTopOf="@+id/runtime" />
+
+            <TextView
+                android:id="@+id/released_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:shadowColor="#BFBFBF"
+                android:text="TextView"
+                android:textColor="#BCBCBC"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/writer"
+                app:layout_constraintTop_toTopOf="@+id/writer" />
+
+            <TextView
+                android:id="@+id/actors"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="sans-serif-light"
+                android:shadowColor="#BFBFBF"
+                android:text="Actors:"
+                android:textAlignment="viewEnd"
+                android:textAllCaps="false"
+                android:textColor="#8A8A8A"
+                android:textSize="18sp"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toEndOf="@+id/writer"
+                app:layout_constraintTop_toBottomOf="@+id/released_text" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

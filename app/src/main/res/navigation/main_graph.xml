@@ -3,20 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
-    app:startDestination="@id/recyclerViewFragment">
+    app:startDestination="@id/recyclerViewFragment2">
 
     <fragment
-        android:id="@+id/recyclerViewFragment"
-        android:name="com.example.internshipproject.RecyclerViewFragment"
+        android:id="@+id/recyclerViewFragment2"
+        android:name="com.example.internshipproject.ui.RecyclerViewFragment"
         android:label="fragment_recycler_view"
         tools:layout="@layout/fragment_recycler_view" >
         <action
-            android:id="@+id/action_recyclerViewFragment_to_filmDetailInformationFragment"
+            android:id="@+id/action_recyclerViewFragment2_to_filmDetailInformationFragment"
             app:destination="@id/filmDetailInformationFragment" />
     </fragment>
     <fragment
         android:id="@+id/filmDetailInformationFragment"
-        android:name="com.example.internshipproject.FilmDetailInformationFragment"
+        android:name="com.example.internshipproject.ui.FilmDetailInformationFragment"
         android:label="fragment_film_detail_information"
         tools:layout="@layout/fragment_film_detail_information" />
 </navigation>
