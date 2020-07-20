@@ -11,12 +11,12 @@
         android:label="fragment_recycler_view"
         tools:layout="@layout/fragment_recycler_view" >
         <action
-            android:id="@+id/action_recyclerViewFragment2_to_filmDetailInformationFragment"
-            app:destination="@id/filmDetailInformationFragment" />
+            android:id="@+id/action_recyclerViewFragment2_to_filmInformationFragment"
+            app:destination="@id/filmInformationFragment" />
     </fragment>
     <fragment
-        android:id="@+id/filmDetailInformationFragment"
-        android:name="com.example.internshipproject.ui.FilmDetailInformationFragment"
-        android:label="fragment_film_detail_information"
-        tools:layout="@layout/fragment_film_detail_information" />
+        android:id="@+id/filmInformationFragment"
+        android:name="com.example.internshipproject.ui.FilmInformationFragment"
+        android:label="fragment_film_information"
+        tools:layout="@layout/fragment_film_information" />
 </navigation>

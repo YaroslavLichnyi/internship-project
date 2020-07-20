@@ -10,18 +10,23 @@ public class Film implements Serializable {
     @SerializedName("Title")
     @Expose
     private String title;
+
     @SerializedName("Year")
     @Expose
     private String year;
+
     @SerializedName("imdbID")
     @Expose
     private String imdbID;
+
     @SerializedName("Type")
     @Expose
     private String type;
+
     @SerializedName("Poster")
     @Expose
     private String poster;
+
     private final static long serialVersionUID = 834745676111564182L;
 
     public String getTitle() {

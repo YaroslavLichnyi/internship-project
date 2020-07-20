@@ -1,5 +1,6 @@
 package com.example.internshipproject.ui;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,8 +40,6 @@ public class RecyclerViewFragment extends Fragment {
                 new Observer<List<Film>>() {
             @Override
             public void onChanged(List<Film> films) {
-
-                //filmList = films;
                 initRecyclerView(films);
             }
         });
@@ -56,9 +56,15 @@ public class RecyclerViewFragment extends Fragment {
         VideoListAdapter adapter = new VideoListAdapter(films);
         RecyclerView recyclerView = recyclerViewBinding.recyclerView;
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
-        //adapter.setFilms(filmList);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        } else {
+            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        }
         adapter.notifyDataSetChanged();
     }
+
+
 }

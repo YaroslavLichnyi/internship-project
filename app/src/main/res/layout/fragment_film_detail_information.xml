@@ -54,7 +54,7 @@
         android:textSize="18sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="@+id/runtime"
-        app:layout_constraintTop_toBottomOf="@+id/genre_text" />
+        app:layout_constraintTop_toBottomOf="@+id/runtime_text" />
 
     <TextView
         android:id="@+id/writer"
@@ -70,7 +70,7 @@
         android:textSize="18sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="@+id/director"
-        app:layout_constraintTop_toBottomOf="@+id/writer_text" />
+        app:layout_constraintTop_toBottomOf="@+id/director_text" />
 
     <TextView
         android:id="@+id/director"
@@ -86,7 +86,7 @@
         android:textSize="18sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="@+id/genre"
-        app:layout_constraintTop_toBottomOf="@+id/director_text" />
+        app:layout_constraintTop_toBottomOf="@+id/genre_text" />
 
     <TextView
         android:id="@+id/runtime"
@@ -102,7 +102,7 @@
         android:textSize="18sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="@+id/released"
-        app:layout_constraintTop_toBottomOf="@+id/runtime_text" />
+        app:layout_constraintTop_toBottomOf="@+id/released_text" />
 
     <TextView
         android:id="@+id/year_text"
@@ -129,7 +129,7 @@
         app:layout_constraintTop_toTopOf="@+id/actors" />
 
     <TextView
-        android:id="@+id/director_text"
+        android:id="@+id/genre_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
@@ -141,7 +141,7 @@
         app:layout_constraintTop_toTopOf="@+id/genre" />
 
     <TextView
-        android:id="@+id/runtime_text"
+        android:id="@+id/released_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
@@ -153,7 +153,7 @@
         app:layout_constraintTop_toTopOf="@+id/released" />
 
     <TextView
-        android:id="@+id/writer_text"
+        android:id="@+id/director_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
@@ -165,7 +165,7 @@
         app:layout_constraintTop_toTopOf="@+id/director" />
 
     <TextView
-        android:id="@+id/genre_text"
+        android:id="@+id/runtime_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
@@ -177,7 +177,7 @@
         app:layout_constraintTop_toTopOf="@+id/runtime" />
 
     <TextView
-        android:id="@+id/released_text"
+        android:id="@+id/writer_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
@@ -202,7 +202,7 @@
         android:textSize="18sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="@+id/writer"
-        app:layout_constraintTop_toBottomOf="@+id/released_text" />
+        app:layout_constraintTop_toBottomOf="@+id/writer_text" />
 
     <TextView
         android:id="@+id/title_text"
