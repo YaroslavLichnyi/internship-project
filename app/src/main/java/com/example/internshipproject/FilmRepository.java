@@ -6,8 +6,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.internshipproject.entities.Film;
+import com.example.internshipproject.entities.FilmDetails;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -16,26 +16,28 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-//сделать синглтоном
 public class FilmRepository {
     public final String BASE_URL = "http://www.omdbapi.com/";
     private Retrofit retrofit;
     private MutableLiveData<List<Film>> filmLiveData;
     private List<Film> films;
+    private static FilmRepository instance;
+    private FilmInfoApiService infoDownloader;
+    private FilmDetails filmDetails;
 
-    public FilmRepository() {
+    public static FilmRepository getInstance(){
+        if (instance == null){
+            instance = new FilmRepository();
+        }
+        return instance;
+    }
+
+    private FilmRepository() {
         filmLiveData = new MutableLiveData<>();
-        //films = new ArrayList<>();
-        //filmLiveData.setValue(films);
-
+        initRetrofit();
     }
 
     public LiveData<List<Film>> getFilmLiveData() {
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        FilmInfoApiService infoDownloader = retrofit.create(FilmInfoApiService.class);
         Call<Search> filmsData = infoDownloader.getFiles();
         filmsData.enqueue(new Callback<Search>() {
             @Override
@@ -57,5 +59,34 @@ public class FilmRepository {
             }
         });
         return filmLiveData;
+    }
+
+    public FilmDetails getFilmDetailsById(String id){
+        Call<FilmDetails> filmsData = infoDownloader.getFilmDetailInfo(id);
+        filmsData.enqueue(new Callback<FilmDetails>() {
+            @Override
+            public void onResponse(Call<FilmDetails> call, Response<FilmDetails> response) {
+
+                if(response.isSuccessful()){
+                    filmDetails = response.body();
+                } else {
+                    Log.d("Retrofit", "onResponse: response is not successful");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FilmDetails> call, Throwable t) {
+                Log.d("Retrofit", "onFailure: " + t.toString());
+            }
+        });
+        return filmDetails;
+    }
+
+    private void initRetrofit(){
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        infoDownloader = retrofit.create(FilmInfoApiService.class);
     }
 }

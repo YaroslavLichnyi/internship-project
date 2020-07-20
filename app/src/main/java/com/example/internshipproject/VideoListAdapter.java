@@ -1,12 +1,14 @@
 package com.example.internshipproject;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -18,6 +20,8 @@ import java.util.List;
 public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.ViewHolder> {
     private List<Film> filmList;
     private Context context;
+    private int selectedHolderPosition = -1;
+    public static String FILM_ID = "FILM_ID";
 
     public VideoListAdapter(List<Film> filmList) {
         this.filmList = filmList;
@@ -53,7 +57,6 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
     @Override
     public int getItemCount() {
         return filmList != null  && filmList.size() > 0 ? filmList.size() : 0;
-        //return filmList.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -66,7 +69,16 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
 
         @Override
         public void onClick(View v) {
+            if (getAdapterPosition() != RecyclerView.NO_POSITION){
+                notifyItemChanged(selectedHolderPosition);
+                selectedHolderPosition = getAdapterPosition();
+                notifyItemChanged(selectedHolderPosition);
 
+                Bundle bundle = new Bundle();
+                bundle.putString(FILM_ID, filmList.get(selectedHolderPosition).getImdbID());
+                Navigation.findNavController(v).navigate(R.id.filmInformationFragment, bundle);
+                //displayOnScreenPhoto();
+            }
         }
     }
 

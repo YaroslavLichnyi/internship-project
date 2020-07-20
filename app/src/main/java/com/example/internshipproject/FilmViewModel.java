@@ -12,14 +12,12 @@ import com.example.internshipproject.entities.Film;
 import java.util.List;
 
 public class FilmViewModel extends AndroidViewModel {
-    private FilmRepository repository;
 
     public FilmViewModel(@NonNull Application application) {
         super(application);
-        repository = new FilmRepository();
     }
 
     public LiveData<List<Film>> getFilms() {
-        return repository.getFilmLiveData();
+        return FilmRepository.getInstance().getFilmLiveData();
     }
 }
