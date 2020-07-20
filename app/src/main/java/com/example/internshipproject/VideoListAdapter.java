@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -17,12 +16,12 @@ import com.example.internshipproject.entities.Film;
 import java.util.List;
 
 public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.ViewHolder> {
-    private LiveData<List<Film>> films;
+    private List<Film> filmList;
     private Context context;
 
-
-    public VideoListAdapter(LiveData<List<Film>> films) {
-        this.films = films;
+    public VideoListAdapter(List<Film> filmList) {
+        this.filmList = filmList;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -35,20 +34,26 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Film currentFilm = films.getValue().get(position);
-        holder.binding.filmTitle.setText(currentFilm.getTitle());
-        holder.binding.year.setText(currentFilm.getYear());
-        Glide.
-                with(context).
-                load(currentFilm.getPoster())
-                .centerCrop()
-                .into(holder.binding.imageView);
-        Log.d("+++++++++++++++", "onBindViewHolder: " + currentFilm.toString());
+        if (filmList != null) {
+            Film currentFilm = filmList.get(position);
+            holder.binding.filmTitle.setText(currentFilm.getTitle());
+            holder.binding.year.setText(currentFilm.getYear());
+            Glide.
+                    with(context).
+                    load(currentFilm.getPoster())
+                    .centerCrop()
+                    .into(holder.binding.imageView);
+            Log.d("+++++++++++++++", "onBindViewHolder: " + currentFilm.toString());
+        } else {
+            Log.e("Object is null", "onBindViewHolder: filmList is null");
+        }
+
     }
 
     @Override
     public int getItemCount() {
-        return films.getValue().size();
+        return filmList != null  && filmList.size() > 0 ? filmList.size() : 0;
+        //return filmList.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -65,11 +70,4 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
         }
     }
 
-    public LiveData<List<Film>> getFilms() {
-        return films;
-    }
-
-    public void setFilms(LiveData<List<Film>> films) {
-        this.films = films;
-    }
 }

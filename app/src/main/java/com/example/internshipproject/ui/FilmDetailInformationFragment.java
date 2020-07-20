@@ -1,14 +1,12 @@
 package com.example.internshipproject.ui;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.internshipproject.R;
+import androidx.fragment.app.Fragment;
+
 import com.example.internshipproject.databinding.FragmentFilmDetailInformationBinding;
 
 public class FilmDetailInformationFragment extends Fragment {
