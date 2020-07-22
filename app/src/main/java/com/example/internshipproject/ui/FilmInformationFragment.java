@@ -1,7 +1,6 @@
 package com.example.internshipproject.ui;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,23 +9,24 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 
 import com.bumptech.glide.Glide;
-import com.example.internshipproject.entities.Film;
-import com.example.internshipproject.viewmodels.FilmDetailsViewModel;
-import com.example.internshipproject.viewmodels.FilmListViewModel;
+import com.example.internshipproject.R;
 import com.example.internshipproject.VideoListAdapter;
 import com.example.internshipproject.databinding.FragmentFilmInformationBinding;
 import com.example.internshipproject.entities.FilmDetails;
+import com.example.internshipproject.viewmodels.FilmDetailsViewModel;
 
-import java.util.List;
 
 
-public class FilmInformationFragment extends Fragment {
+public class FilmInformationFragment extends Fragment implements View.OnClickListener {
     private FragmentFilmInformationBinding binding;
     private FilmDetails filmDetails;
     FilmDetailsViewModel viewModel;
+    public static String DESCRIPTION = "description";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class FilmInformationFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        binding.descriptionDetails.setOnClickListener(this);
     }
 
     private void insertDataOnScreen() {
@@ -77,5 +77,12 @@ public class FilmInformationFragment extends Fragment {
 
     public void setFilmDetails(FilmDetails filmDetails) {
         this.filmDetails = filmDetails;
+    }
+
+    @Override
+    public void onClick(View v) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(DESCRIPTION, filmDetails.getPlot());
+        Navigation.findNavController(v).navigate(R.id.action_filmInformationFragment_to_filmDetailInformationFragment, bundle);
     }
 }

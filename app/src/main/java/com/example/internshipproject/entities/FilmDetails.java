@@ -30,6 +30,9 @@ public class FilmDetails {
     @SerializedName("Poster")
     private String posterUrl;
 
+    @SerializedName("Plot")
+    private String plot;
+
     public String getTitle() {
         return title;
     }
@@ -100,6 +103,14 @@ public class FilmDetails {
 
     public void setPosterUrl(String posterUrl) {
         this.posterUrl = posterUrl;
+    }
+
+    public String getPlot() {
+        return plot;
+    }
+
+    public void setPlot(String plot) {
+        this.plot = plot;
     }
 
     @Override

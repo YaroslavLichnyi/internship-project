@@ -7,8 +7,6 @@ import androidx.lifecycle.ViewModel;
 import com.example.internshipproject.FilmRepository;
 import com.example.internshipproject.entities.FilmDetails;
 
-import java.util.List;
-
 public class FilmDetailsViewModel extends ViewModel {
     private MutableLiveData<FilmDetails> filmDetailsLiveData;
 

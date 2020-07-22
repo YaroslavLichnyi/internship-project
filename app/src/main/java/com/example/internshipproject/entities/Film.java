@@ -5,6 +5,10 @@ import java.io.Serializable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Represents a film. Generates based on JSON document that
+ * {@link com.example.internshipproject.FilmRepository} gets from server.
+ */
 public class Film implements Serializable {
 
     @SerializedName("Title")
