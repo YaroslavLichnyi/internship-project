@@ -1,4 +1,4 @@
-package com.example.internshipproject;
+package com.example.internshipproject.entities;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,7 +19,7 @@ public class Search implements Serializable
     @SerializedName("Response")
     @Expose
     private String response;
-    private final static long serialVersionUID = -5564941752548845062L;
+    //private final static long serialVersionUID = -5564941752548845062L;
 
     public List<Film> getSearch() {
         return search;

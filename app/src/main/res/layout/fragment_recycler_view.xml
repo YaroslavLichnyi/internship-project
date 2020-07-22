@@ -5,6 +5,7 @@
     android:id="@+id/recyclerViewFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorAccent"
     tools:context=".ui.RecyclerViewFragment">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -22,10 +23,17 @@
         android:id="@+id/searchView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="4dp"
         android:background="@color/colorPrimaryDark"
+        android:title="Search"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:showAsAction="always" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

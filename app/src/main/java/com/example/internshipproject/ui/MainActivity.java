@@ -7,9 +7,11 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.internshipproject.R;
+import com.example.internshipproject.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
     private NavController navController;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

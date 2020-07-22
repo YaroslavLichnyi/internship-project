@@ -75,8 +75,8 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
                 notifyItemChanged(selectedHolderPosition);
 
                 Bundle bundle = new Bundle();
-                bundle.putString(FILM_ID, filmList.get(selectedHolderPosition).getImdbID());
-                Navigation.findNavController(v).navigate(R.id.filmInformationFragment, bundle);
+                bundle.putSerializable(FILM_ID, filmList.get(selectedHolderPosition).getImdbID());
+                Navigation.findNavController(v).navigate(R.id.action_recyclerViewFragment2_to_filmInformationFragment, bundle);
                 //displayOnScreenPhoto();
             }
         }

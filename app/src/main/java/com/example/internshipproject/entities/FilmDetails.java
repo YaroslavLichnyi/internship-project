@@ -111,4 +111,19 @@ public class FilmDetails {
     public void setPosterUrl(String posterUrl) {
         this.posterUrl = posterUrl;
     }
+
+    @Override
+    public String toString() {
+        return "FilmDetails{" +
+                "title='" + title + '\'' +
+                ", year='" + year + '\'' +
+                ", released='" + released + '\'' +
+                ", runtime='" + runtime + '\'' +
+                ", genre='" + genre + '\'' +
+                ", director='" + director + '\'' +
+                ", writer='" + writer + '\'' +
+                ", actors='" + actors + '\'' +
+                ", posterUrl='" + posterUrl + '\'' +
+                '}';
+    }
 }

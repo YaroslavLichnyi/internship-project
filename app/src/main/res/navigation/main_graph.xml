@@ -18,5 +18,14 @@
         android:id="@+id/filmInformationFragment"
         android:name="com.example.internshipproject.ui.FilmInformationFragment"
         android:label="fragment_film_information"
-        tools:layout="@layout/fragment_film_information" />
+        tools:layout="@layout/fragment_film_information" >
+        <action
+            android:id="@+id/action_filmInformationFragment_to_filmDetailInformationFragment"
+            app:destination="@id/filmDetailInformationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/filmDetailInformationFragment"
+        android:name="com.example.internshipproject.ui.FilmDetailInformationFragment"
+        android:label="fragment_film_detail_information"
+        tools:layout="@layout/fragment_film_detail_information" />
 </navigation>

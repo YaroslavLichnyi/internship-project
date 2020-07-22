@@ -7,6 +7,9 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.internshipproject.entities.Film;
 import com.example.internshipproject.entities.FilmDetails;
+import com.example.internshipproject.entities.Search;
+import com.example.internshipproject.viewmodels.FilmDetailsListener;
+import com.example.internshipproject.viewmodels.FilmListListener;
 
 import java.util.List;
 
@@ -37,17 +40,14 @@ public class FilmRepository {
         initRetrofit();
     }
 
-    public LiveData<List<Film>> getFilmLiveData() {
-        Call<Search> filmsData = infoDownloader.getFiles();
+    public void getFilmLiveData(String keyWord, FilmListListener listener) {
+        Call<Search> filmsData = infoDownloader.getFiles(keyWord);
         filmsData.enqueue(new Callback<Search>() {
             @Override
             public void onResponse(Call<Search> call, Response<Search> response) {
-                if(response.isSuccessful()){
+                if(response.isSuccessful() /*роверять размер бади?*/){
                     films = response.body().getSearch();
-                    Log.d("Retrofit", "onResponse: " + films.toString());
-                    // setValue - передача значения из главного потока, postValue - из другого
-                    //filmLiveData.postValue(films);
-                    filmLiveData.setValue(films);
+                    listener.loadFilmList(films);
                 } else {
                     Log.d("Retrofit", "onResponse: response is not successful");
                 }
@@ -58,17 +58,16 @@ public class FilmRepository {
                 Log.d("Retrofit", "onFailure: " + t.toString());
             }
         });
-        return filmLiveData;
     }
 
-    public FilmDetails getFilmDetailsById(String id){
+    public void getFilmDetailsById(String id, FilmDetailsListener listener){
         Call<FilmDetails> filmsData = infoDownloader.getFilmDetailInfo(id);
         filmsData.enqueue(new Callback<FilmDetails>() {
             @Override
             public void onResponse(Call<FilmDetails> call, Response<FilmDetails> response) {
-
                 if(response.isSuccessful()){
                     filmDetails = response.body();
+                    listener.loadFilmDetails(filmDetails);
                 } else {
                     Log.d("Retrofit", "onResponse: response is not successful");
                 }
@@ -79,7 +78,6 @@ public class FilmRepository {
                 Log.d("Retrofit", "onFailure: " + t.toString());
             }
         });
-        return filmDetails;
     }
 
     private void initRetrofit(){
