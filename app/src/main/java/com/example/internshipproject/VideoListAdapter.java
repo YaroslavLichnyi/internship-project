@@ -23,9 +23,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
     private int selectedHolderPosition = -1;
     public static String FILM_ID = "FILM_ID";
 
-    public VideoListAdapter(List<Film> filmList) {
-        this.filmList = filmList;
-        notifyDataSetChanged();
+    public VideoListAdapter() {
     }
 
     @NonNull
@@ -47,7 +45,6 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
                     load(currentFilm.getPoster())
                     .centerCrop()
                     .into(holder.binding.imageView);
-            Log.d("+++++++++++++++", "onBindViewHolder: " + currentFilm.toString());
         } else {
             Log.e("Object is null", "onBindViewHolder: filmList is null");
         }
@@ -70,16 +67,18 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
         @Override
         public void onClick(View v) {
             if (getAdapterPosition() != RecyclerView.NO_POSITION){
-                notifyItemChanged(selectedHolderPosition);
                 selectedHolderPosition = getAdapterPosition();
-                notifyItemChanged(selectedHolderPosition);
 
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(FILM_ID, filmList.get(selectedHolderPosition).getImdbID());
                 Navigation.findNavController(v).navigate(R.id.action_recyclerViewFragment2_to_filmInformationFragment, bundle);
-                //displayOnScreenPhoto();
             }
         }
     }
 
+
+    public void setFilmList(List<Film> filmList) {
+        this.filmList = filmList;
+        notifyDataSetChanged();
+    }
 }

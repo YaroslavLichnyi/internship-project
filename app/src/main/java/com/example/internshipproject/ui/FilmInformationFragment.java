@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.bumptech.glide.Glide;
 import com.example.internshipproject.entities.Film;
 import com.example.internshipproject.viewmodels.FilmDetailsViewModel;
 import com.example.internshipproject.viewmodels.FilmListViewModel;
@@ -31,32 +32,12 @@ public class FilmInformationFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = ViewModelProviders.of(this).get(FilmDetailsViewModel.class);
-
-        /*viewModel.getFilmDetailsById((String) bundle.getSerializable(VideoListAdapter.FILM_ID)).observe(
-                getViewLifecycleOwner(),
-                new Observer<List<Film>>() {
-                    @Override
-                    public void onChanged(List<Film> films) {
-                        initRecyclerView(films);
-                    }
-                });
-
-         */
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentFilmInformationBinding.inflate(inflater, container, false);
-        return binding.getRoot();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        /*viewModel = ViewModelProviders.of(this).get(FilmViewModel.class);
-        filmDetails =  viewModel.getFilmDetailsById(
-                savedInstanceState.getString(VideoListAdapter.FILM_ID));*/
         Bundle bundle = getArguments();
         if (bundle != null) {
             viewModel
@@ -65,12 +46,18 @@ public class FilmInformationFragment extends Fragment {
                                 @Override
                                 public void onChanged(FilmDetails filmDetails) {
                                     setFilmDetails(filmDetails);
+                                    insertDataOnScreen();
                                 }
                             }
                     );
         }
-        Log.d("cccccccc", "onViewCreated: " + filmDetails.toString());
-        //insertDataOnScreen();
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
     }
 
     private void insertDataOnScreen() {
@@ -80,11 +67,13 @@ public class FilmInformationFragment extends Fragment {
         binding.directorText.setText(filmDetails.getDirector());
         binding.writerText.setText(filmDetails.getWriter());
         binding.actorsText.setText(filmDetails.getActors());
+        binding.titleText.setText(filmDetails.getTitle());
+        Glide
+                .with(getContext())
+                .load(filmDetails.getPosterUrl())
+                .into(binding.posterPhoto);
     }
 
-    public FilmDetails getFilmDetails() {
-        return filmDetails;
-    }
 
     public void setFilmDetails(FilmDetails filmDetails) {
         this.filmDetails = filmDetails;

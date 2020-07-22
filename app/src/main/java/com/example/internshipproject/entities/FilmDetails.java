@@ -1,43 +1,33 @@
 package com.example.internshipproject.entities;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class FilmDetails {
     @SerializedName("Title")
-    @Expose
     private String title;
 
     @SerializedName("Year")
-    @Expose
     private String year;
 
     @SerializedName("Released")
-    @Expose
     private String released;
 
     @SerializedName("Runtime")
-    @Expose
     private String runtime;
 
     @SerializedName("Genre")
-    @Expose
     private String genre;
 
     @SerializedName("Director")
-    @Expose
     private String director;
 
     @SerializedName("Writer")
-    @Expose
     private String writer;
 
     @SerializedName("Actors")
-    @Expose
     private String actors;
 
     @SerializedName("Poster")
-    @Expose
     private String posterUrl;
 
     public String getTitle() {

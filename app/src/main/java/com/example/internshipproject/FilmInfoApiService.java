@@ -13,8 +13,8 @@ import retrofit2.http.Query;
 public interface FilmInfoApiService {
     /**
      *
-     * @param keyWord
-     * @return
+     * @param keyWord is a key word depending on which search of films os doing
+     * @return POJO which was created based on JSON document
      */
     @GET("?apikey=7e6a1464")
     Call<Search> getFiles(@Query("s") String keyWord);

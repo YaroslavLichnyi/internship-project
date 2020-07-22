@@ -30,6 +30,8 @@ public class RecyclerViewFragment extends Fragment {
     private FilmListViewModel viewModel;
     private List<Film> filmList;
     private SearchView searchView;
+    private RecyclerView recyclerView;
+    private VideoListAdapter adapter;
 
     @Nullable
     @Override
@@ -42,7 +44,8 @@ public class RecyclerViewFragment extends Fragment {
                 getViewLifecycleOwner(), new Observer<List<Film>>() {
             @Override
             public void onChanged(List<Film> films) {
-                initRecyclerView(films);
+                initRecyclerView();
+                insertFilmsIntoRecyclerView(films);
             }
         });
         return recyclerViewBinding.getRoot();
@@ -66,15 +69,17 @@ public class RecyclerViewFragment extends Fragment {
             }
         });
          */
-        //initRecyclerView();
     }
 
-    private void initRecyclerView(List<Film> films){
-        VideoListAdapter adapter = new VideoListAdapter(films);
-        RecyclerView recyclerView = recyclerViewBinding.recyclerView;
+    private void initRecyclerView(){
+        adapter = new VideoListAdapter();
+        recyclerView = recyclerViewBinding.recyclerView;
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(adapter);
+    }
 
+    private void insertFilmsIntoRecyclerView(List<Film> films){
+        adapter.setFilmList(films);
         if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         } else {
@@ -82,19 +87,4 @@ public class RecyclerViewFragment extends Fragment {
         }
         adapter.notifyDataSetChanged();
     }
-
-    private void insertFilmsIntoRecyclerView(List<Film> films){
-
-    }
-
-    public void searchFilms(View v){
-
-        /*initRecyclerView(
-                viewModel.getFilms((String) searchView.getQuery().)
-        );
-
-         */
-    }
-
-
 }
