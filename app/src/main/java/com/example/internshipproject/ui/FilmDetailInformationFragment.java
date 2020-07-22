@@ -8,10 +8,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.internshipproject.databinding.FragmentFilmDetailInformationBinding;
 
-public class FilmDetailInformationFragment extends Fragment {
+public class FilmDetailInformationFragment extends Fragment implements View.OnClickListener {
     private FragmentFilmDetailInformationBinding binding;
 
     @Override
@@ -26,6 +27,12 @@ public class FilmDetailInformationFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Bundle bundle = getArguments();
-        binding.textView2.setText((String)bundle.getSerializable(FilmInformationFragment.DESCRIPTION));
+        binding.descriptionText.setText((String)bundle.getSerializable(FilmInformationFragment.DESCRIPTION));
+        binding.backButton.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        Navigation.findNavController(v).popBackStack();
     }
 }

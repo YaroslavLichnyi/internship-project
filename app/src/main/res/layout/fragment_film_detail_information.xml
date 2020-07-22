@@ -8,7 +8,7 @@
     tools:context=".ui.FilmDetailInformationFragment">
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/back_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/description_text"
         android:layout_width="0dp"
         android:layout_height="671dp"
         android:layout_marginStart="8dp"
@@ -30,6 +30,6 @@
         android:textColor="@color/colorLightBackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
+        app:layout_constraintTop_toBottomOf="@+id/back_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
