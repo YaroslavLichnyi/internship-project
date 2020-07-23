@@ -15,4 +15,6 @@ public interface FilmListListener {
      * @param filmList is a List of Film objects which data from asynchronous methods puts in.
      */
     void loadFilmList(List<Film> filmList);
+
+    //void handleError();
 }

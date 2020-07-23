@@ -9,21 +9,27 @@ import com.example.internshipproject.entities.FilmDetails;
 
 public class FilmDetailsViewModel extends ViewModel {
     private MutableLiveData<FilmDetails> filmDetailsLiveData;
-
+    private MutableLiveData<String> filmDetailsLiveDataException;
     public FilmDetailsViewModel() {
         filmDetailsLiveData = new MutableLiveData<>();
+        filmDetailsLiveDataException = new MutableLiveData<>();
     }
 
-    public LiveData<FilmDetails> getFilmDetailsById(String id) {
-        if(filmDetailsLiveData.getValue() == null){
-            FilmRepository.getInstance().getFilmDetailsById(id, new FilmDetailsListener() {
-                @Override
-                public void loadFilmDetails(FilmDetails filmDetails) {
-                    filmDetailsLiveData.postValue(filmDetails);
-                }
-            });
-        }
+    public LiveData<FilmDetails> loadFilmDetailsById(String id) {
+        FilmRepository.getInstance().getFilmDetailsById(id, new FilmDetailsListener() {
+            @Override
+            public void loadFilmDetails(FilmDetails filmDetails) {
+                filmDetailsLiveData.postValue(filmDetails);
+            }
+        });
         return filmDetailsLiveData;
     }
 
+    public MutableLiveData<FilmDetails> getFilmDetailsLiveData() {
+        return filmDetailsLiveData;
+    }
+
+    public MutableLiveData<String> getFilmDetailsLiveDataException() {
+        return filmDetailsLiveDataException;
+    }
 }

@@ -1,11 +1,13 @@
 package com.example.internshipproject.ui;
 
+import android.annotation.SuppressLint;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -30,25 +32,31 @@ public class RecyclerViewFragment extends Fragment {
     private FragmentRecyclerViewBinding recyclerViewBinding;
     private FilmListViewModel viewModel;
     private List<Film> filmList;
-    private SearchView searchView;
     private RecyclerView recyclerView;
     private VideoListAdapter adapter;
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        viewModel = ViewModelProviders.of(this).get(FilmListViewModel.class);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        subscribeOnLiveData();
+        subscribeOnLiveDataExceptions();
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         recyclerViewBinding = FragmentRecyclerViewBinding.inflate(inflater, container, false);
-        viewModel = ViewModelProviders.of(this).get(FilmListViewModel.class);
-        viewModel
-                .getFilms("war")
-                .observe(
-                getViewLifecycleOwner(), new Observer<List<Film>>() {
-            @Override
-            public void onChanged(List<Film> films) {
-                initRecyclerView();
-                insertFilmsIntoRecyclerView(films);
-            }
-        });
+        initRecyclerView();
+        if(filmList == null){
+            viewModel.loadFilms("war");
+        }
         return recyclerViewBinding.getRoot();
     }
 
@@ -70,12 +78,16 @@ public class RecyclerViewFragment extends Fragment {
             }
         });
          */
-        requireActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+        requireActivity().getOnBackPressedDispatcher().addCallback(
+                getViewLifecycleOwner(), new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {}
         });
     }
 
+    /**
+     * Binds a variable recyclerView with recyclerView view and set an Adapter into it.
+     */
     private void initRecyclerView(){
         adapter = new VideoListAdapter();
         recyclerView = recyclerViewBinding.recyclerView;
@@ -83,6 +95,10 @@ public class RecyclerViewFragment extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
+    /**
+     *  Inserts data about films into recyclerView.
+     * @param films contains data that inserts into recyclerView.
+     */
     private void insertFilmsIntoRecyclerView(List<Film> films){
         adapter.setFilmList(films);
         if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -92,4 +108,42 @@ public class RecyclerViewFragment extends Fragment {
         }
         adapter.notifyDataSetChanged();
     }
+
+    /**
+     * Subscribes on LiveData updates. When LiveData updates then new data that LiveData contains
+     * displays on the screen.
+     */
+    private void subscribeOnLiveData(){
+        viewModel
+                .getFilmLiveData()
+                .observe(getViewLifecycleOwner(), new Observer<List<Film>>() {
+                    @Override
+                    public void onChanged(List<Film> films) {
+                        setFilmList(films);
+                        insertFilmsIntoRecyclerView(films);
+                    }
+                });
+    }
+
+    /**
+     * Subscribes on LiveData updates about Exceptions and Errors that are happen while LiveData
+     * tries to get data from server.
+     */
+    private void subscribeOnLiveDataExceptions(){
+        viewModel
+                .getFilmLiveDataExceptions()
+                .observe(getViewLifecycleOwner(), new Observer<String>() {
+                    @Override
+                    public void onChanged(String s) {
+                        Toast.makeText(getContext(),"Couldn't update the film list:" + s, Toast.LENGTH_LONG );
+                    }
+                });
+
+    }
+
+
+    public void setFilmList(List<Film> filmList) {
+        this.filmList = filmList;
+    }
+
 }

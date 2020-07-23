@@ -5,12 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
@@ -42,7 +40,7 @@ public class FilmInformationFragment extends Fragment implements View.OnClickLis
         Bundle bundle = getArguments();
         if (bundle != null) {
             viewModel
-                    .getFilmDetailsById((String) bundle.getSerializable(VideoListAdapter.FILM_ID))
+                    .loadFilmDetailsById((String) bundle.getSerializable(VideoListAdapter.FILM_ID))
                     .observe(getViewLifecycleOwner(), new Observer<FilmDetails>() {
                                 @Override
                                 public void onChanged(FilmDetails filmDetails) {

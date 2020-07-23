@@ -45,7 +45,7 @@ public class FilmRepository {
         filmsData.enqueue(new Callback<Search>() {
             @Override
             public void onResponse(Call<Search> call, Response<Search> response) {
-                if(response.isSuccessful() /*роверять размер бади?*/){
+                if(response.isSuccessful()){
                     films = response.body().getSearch();
                     listener.loadFilmList(films);
                 } else {
@@ -80,6 +80,9 @@ public class FilmRepository {
         });
     }
 
+    /**
+     * Initializes Retrofit object and sets API to it
+     */
     private void initRetrofit(){
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
