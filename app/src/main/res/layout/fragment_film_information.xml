@@ -19,27 +19,39 @@
             <ImageView
                 android:id="@+id/poster_photo"
                 android:layout_width="0dp"
-                android:layout_height="400dp"
+                android:layout_height="325dp"
                 android:foreground="@drawable/ic_photo_gradient"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@tools:sample/avatars" />
+
+            <com.google.android.exoplayer2.ui.PlayerView
+                android:id="@+id/player_view"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:background="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/poster_photo" />
 
             <TextView
                 android:id="@+id/title_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:text="Film name"
-                android:textColor="#C1C1C1"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toBottomOf="@+id/poster_photo"
-                app:layout_constraintEnd_toStartOf="@+id/description_details"
+                android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:textAlignment="center"
+                android:textColor="@color/colorLightBackground"
+                android:textColorHighlight="#FFFFFF"
+                android:textSize="30sp"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/poster_photo"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toBottomOf="@+id/bt_play"
+                tools:text="Film name" />
 
             <Button
                 android:id="@+id/description_details"
@@ -49,10 +61,9 @@
                 android:background="@drawable/btn_semi_transperent_round"
                 android:drawableLeft="@drawable/ic_baseline_description_24"
                 android:paddingStart="13dp"
-                app:layout_constraintBottom_toBottomOf="@+id/title_text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/title_text" />
-
+                app:layout_constraintBottom_toBottomOf="@+id/poster_photo"
+                app:layout_constraintEnd_toEndOf="parent" />
+            <!--
             <Button
                 android:id="@+id/back_button"
                 android:layout_width="50dp"
@@ -64,7 +75,7 @@
                 android:paddingStart="13dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
+-->
             <TextView
                 android:id="@+id/year"
                 android:layout_width="wrap_content"
@@ -168,7 +179,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:shadowColor="#BFBFBF"
-                android:text="TextView"
                 android:textColor="#BCBCBC"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -181,7 +191,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:shadowColor="#BFBFBF"
-                android:text="TextView"
                 android:textColor="#BCBCBC"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -194,7 +203,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:shadowColor="#BFBFBF"
-                android:text="TextView"
                 android:textColor="#BCBCBC"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -207,7 +215,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:shadowColor="#BFBFBF"
-                android:text="TextView"
                 android:textColor="#BCBCBC"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -220,7 +227,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:shadowColor="#BFBFBF"
-                android:text="TextView"
                 android:textColor="#BCBCBC"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -233,7 +239,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:shadowColor="#BFBFBF"
-                android:text="TextView"
                 android:textColor="#BCBCBC"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -246,7 +251,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:shadowColor="#BFBFBF"
-                android:text="TextView"
                 android:textColor="#BCBCBC"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -268,6 +272,20 @@
                 android:textStyle="italic"
                 app:layout_constraintEnd_toEndOf="@+id/writer"
                 app:layout_constraintTop_toBottomOf="@+id/writer_text" />
+
+            <Button
+                android:id="@+id/bt_play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_semi_transperent_round_pressed"
+                android:drawableLeft="@drawable/ic_baseline_play_arrow_24"
+                android:paddingStart="13dp"
+                android:paddingEnd="13dp"
+                android:text="Play"
+                android:textColor="@color/colorLightBackground"
+                app:layout_constraintBottom_toBottomOf="@+id/poster_photo"
+                app:layout_constraintEnd_toStartOf="@+id/description_details" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

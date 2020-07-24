@@ -23,9 +23,6 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
     private int selectedHolderPosition = -1;
     public static String FILM_ID = "FILM_ID";
 
-    public VideoListAdapter() {
-    }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -48,12 +45,16 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
         } else {
             Log.e("Object is null", "onBindViewHolder: filmList is null");
         }
-
     }
 
     @Override
     public int getItemCount() {
         return filmList != null  && filmList.size() > 0 ? filmList.size() : 0;
+    }
+
+    public void setFilmList(List<Film> filmList) {
+        this.filmList = filmList;
+        notifyDataSetChanged();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -74,11 +75,5 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
                 Navigation.findNavController(v).navigate(R.id.action_recyclerViewFragment2_to_filmInformationFragment, bundle);
             }
         }
-    }
-
-
-    public void setFilmList(List<Film> filmList) {
-        this.filmList = filmList;
-        notifyDataSetChanged();
     }
 }

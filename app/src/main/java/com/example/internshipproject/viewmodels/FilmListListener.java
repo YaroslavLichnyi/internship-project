@@ -16,5 +16,10 @@ public interface FilmListListener {
      */
     void loadFilmList(List<Film> filmList);
 
-    //void handleError();
+    /**
+     * Notifies about getting from server response that doesn't contain a list of films.
+     *
+     * @param response is a message that user will see.
+     */
+    void notifyAboutNotSuccessfulResponse(String response);
 }

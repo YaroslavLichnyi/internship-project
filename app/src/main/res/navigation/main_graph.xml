@@ -22,10 +22,26 @@
         <action
             android:id="@+id/action_filmInformationFragment_to_filmDetailInformationFragment"
             app:destination="@id/filmDetailInformationFragment" />
+        <action
+            android:id="@+id/action_filmInformationFragment_to_imageHolderFragment"
+            app:destination="@id/imageHolderFragment" />
+        <action
+            android:id="@+id/action_filmInformationFragment_to_videoPlayerFragment"
+            app:destination="@id/videoPlayerFragment" />
     </fragment>
     <fragment
         android:id="@+id/filmDetailInformationFragment"
         android:name="com.example.internshipproject.ui.FilmDetailInformationFragment"
         android:label="fragment_film_detail_information"
         tools:layout="@layout/fragment_film_detail_information" />
+    <fragment
+        android:id="@+id/imageHolderFragment"
+        android:name="com.example.internshipproject.ImageHolderFragment"
+        android:label="fragment_image_holder"
+        tools:layout="@layout/fragment_image_holder" />
+    <fragment
+        android:id="@+id/videoPlayerFragment"
+        android:name="com.example.internshipproject.VideoPlayerFragment"
+        android:label="fragment_video_player"
+        tools:layout="@layout/fragment_video_player" />
 </navigation>

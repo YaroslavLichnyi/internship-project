@@ -8,21 +8,24 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 /**
- *
+ * Serves for using its method for getting know what API to use for making responses on server.
  */
 public interface FilmInfoApiService {
     /**
+     * Contains API for getting getting films from server using key word.
      *
-     * @param keyWord is a key word depending on which search of films os doing
-     * @return POJO which was created based on JSON document
+     * @param keyWord is a key word depending on which search of films is going on.
+     * @return POJO which was created based on JSON document.
      */
     @GET("?apikey=7e6a1464")
     Call<Search> getFiles(@Query("s") String keyWord);
 
     /**
+     * Contains API for getting getting detail information about film from server using its
+     * unique id.
      *
-     * @param imdbId
-     * @return
+     * @param imdbId is a unique id of films depending on which search of films is going on.
+     * @return POJO which was created based on JSON document.
      */
     @GET("?apikey=7e6a1464&plot=full")
     Call<FilmDetails> getFilmDetailInfo(@Query("i") String imdbId);

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.internshipproject.FilmRepository;
+import com.example.internshipproject.repository.FilmRepository;
 import com.example.internshipproject.entities.Film;
 
 import java.util.List;
@@ -27,11 +27,15 @@ public class FilmListViewModel extends ViewModel {
                 public void loadFilmList(List<Film> filmList) {
                     filmLiveData.postValue(filmList);
                 }
+
+                @Override
+                public void notifyAboutNotSuccessfulResponse(String response) {
+                    filmLiveDataExceptions.postValue(response);
+                }
             });
         }
         return filmLiveData;
     }
-
 
     public MutableLiveData<List<Film>> getFilmLiveData() {
         return filmLiveData;

@@ -1,12 +1,10 @@
 package com.example.internshipproject.ui;
 
-import android.annotation.SuppressLint;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
@@ -20,10 +18,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.internshipproject.viewmodels.FilmListViewModel;
 import com.example.internshipproject.VideoListAdapter;
 import com.example.internshipproject.databinding.FragmentRecyclerViewBinding;
 import com.example.internshipproject.entities.Film;
+import com.example.internshipproject.viewmodels.FilmListViewModel;
 
 import java.util.List;
 
@@ -85,6 +83,10 @@ public class RecyclerViewFragment extends Fragment {
         });
     }
 
+    public void setFilmList(List<Film> filmList) {
+        this.filmList = filmList;
+    }
+
     /**
      * Binds a variable recyclerView with recyclerView view and set an Adapter into it.
      */
@@ -135,15 +137,11 @@ public class RecyclerViewFragment extends Fragment {
                 .observe(getViewLifecycleOwner(), new Observer<String>() {
                     @Override
                     public void onChanged(String s) {
-                        Toast.makeText(getContext(),"Couldn't update the film list:" + s, Toast.LENGTH_LONG );
+                        Toast.makeText(
+                                getContext(),
+                                "Couldn't update the film list:" + s,
+                                Toast.LENGTH_LONG );
                     }
                 });
-
     }
-
-
-    public void setFilmList(List<Film> filmList) {
-        this.filmList = filmList;
-    }
-
 }

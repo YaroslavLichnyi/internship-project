@@ -19,7 +19,6 @@ public class Search implements Serializable
     @SerializedName("Response")
     @Expose
     private String response;
-    //private final static long serialVersionUID = -5564941752548845062L;
 
     public List<Film> getSearch() {
         return search;
