@@ -24,14 +24,17 @@ public class FilmPlayer {
     private long playbackPosition = 0;
     private Context context;
     private String filmUri;
+    private static FilmPlayer filmPlayer;
 
     private FilmPlayer() {
     }
 
     public static FilmPlayer newInstance(Context context){
-        FilmPlayer filmPlayer = new FilmPlayer();
-        filmPlayer.context = context;
-        filmPlayer.filmUri = "https://storage.googleapis.com/exoplayer-test-media-0/BigBuckBunny_320x180.mp4";
+        if (filmPlayer == null){
+            filmPlayer = new FilmPlayer();
+            filmPlayer.context = context;
+            filmPlayer.filmUri = "https://storage.googleapis.com/exoplayer-test-media-0/BigBuckBunny_320x180.mp4";
+        }
         return filmPlayer;
     }
 
@@ -55,8 +58,8 @@ public class FilmPlayer {
 
     /**
      * Builds media source
-     * @param uri
-     * @return
+     * @param uri is a uri of video that have to be displays on the screen
+     * @return built media source
      */
     private MediaSource buildMediaSource(Uri uri) {
         DataSource.Factory dataSourceFactory =

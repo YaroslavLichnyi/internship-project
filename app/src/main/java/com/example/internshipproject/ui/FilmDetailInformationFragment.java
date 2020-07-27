@@ -27,7 +27,8 @@ public class FilmDetailInformationFragment extends Fragment implements View.OnCl
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Bundle bundle = getArguments();
-        binding.descriptionText.setText((String)bundle.getSerializable(FilmInformationFragment.DESCRIPTION));
+        binding.descriptionText.setText(bundle.getString(FilmInformationFragment.DESCRIPTION));
+        binding.filmName.setText(bundle.getString(FilmInformationFragment.FILM_NAME));
         binding.backButton.setOnClickListener(this);
     }
 

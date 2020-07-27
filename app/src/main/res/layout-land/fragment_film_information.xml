@@ -9,7 +9,10 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="-162dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -32,16 +35,24 @@
                 android:id="@+id/bt_play"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/btn_play"
                 android:drawableLeft="@drawable/ic_baseline_play_arrow_24"
                 android:paddingStart="13dp"
                 android:paddingEnd="13dp"
                 android:text="Play"
                 android:textColor="#FFFFFF"
-                app:layout_constraintBottom_toBottomOf="@+id/poster_photo"
                 app:layout_constraintEnd_toStartOf="@+id/description_details"
                 app:layout_constraintTop_toBottomOf="@+id/player_view" />
+
+            <com.google.android.exoplayer2.ui.PlayerView
+                android:id="@+id/player_view"
+                android:layout_width="731dp"
+                android:layout_height="405dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/poster_photo" />
 
             <TextView
                 android:id="@+id/title_text"
@@ -53,9 +64,10 @@
                 android:textColor="#FFFFFF"
                 android:textColorHighlight="#FFFFFF"
                 android:textSize="30sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/bt_play"
+                app:layout_constraintHorizontal_bias="0.026"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bt_play"
+                app:layout_constraintTop_toTopOf="@+id/bt_play"
                 tools:text="Film name" />
 
             <Button
@@ -278,15 +290,6 @@
                 android:textStyle="italic"
                 app:layout_constraintEnd_toEndOf="@+id/writer"
                 app:layout_constraintTop_toBottomOf="@+id/writer_text" />
-
-            <com.google.android.exoplayer2.ui.PlayerView
-                android:id="@+id/player_view"
-                android:layout_width="match_parent"
-                android:layout_height="203dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/poster_photo" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
