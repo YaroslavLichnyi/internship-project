@@ -9,7 +9,7 @@
     tools:context=".ui.RecyclerViewFragment">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonFind"
         android:layout_width="60dp"
         android:layout_height="40dp"
         android:background="@drawable/btn_find"
@@ -17,7 +17,9 @@
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="@+id/searchView"
         app:layout_constraintEnd_toEndOf="@+id/searchView"
-        app:layout_constraintTop_toTopOf="@+id/searchView" />
+        app:layout_constraintTop_toTopOf="@+id/searchView"
+        android:layout_alignParentLeft="true"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -33,7 +35,7 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:background="@color/colorDarkGreyBackground"
 
         android:paddingLeft="8dp"
@@ -45,19 +47,22 @@
 
     <SearchView
         android:id="@+id/searchView"
-        android:layout_width="238dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/srch_normal"
         android:title="Search"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintStart_toEndOf="@+id/app_name"
         app:layout_constraintTop_toTopOf="parent"
         app:showAsAction="always">
 
     </SearchView>
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"

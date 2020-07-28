@@ -14,13 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.internshipproject.databinding.ItemRecyclerViewBinding;
 import com.example.internshipproject.entities.Film;
+import com.example.internshipproject.ui.FilmInformationFragment;
 
 import java.util.List;
 
 public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.ViewHolder> {
     private List<Film> filmList;
     private Context context;
-    private int selectedHolderPosition = -1;
+    public static int sSelectedHolderPosition = -1;
     public static String FILM_ID = "FILM_ID";
 
     @NonNull
@@ -68,9 +69,11 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
         @Override
         public void onClick(View v) {
             if (getAdapterPosition() != RecyclerView.NO_POSITION){
-                selectedHolderPosition = getAdapterPosition();
+                FilmPlayer.cleanPlayer();
+                FilmInformationFragment.VIDEO_PLAYER_IS_SHOWED = false;
+                sSelectedHolderPosition = getAdapterPosition();
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(FILM_ID, filmList.get(selectedHolderPosition).getImdbID());
+                bundle.putSerializable(FILM_ID, filmList.get(sSelectedHolderPosition).getImdbID());
                 Navigation.findNavController(v).navigate(R.id.action_recyclerViewFragment2_to_filmInformationFragment, bundle);
             }
         }

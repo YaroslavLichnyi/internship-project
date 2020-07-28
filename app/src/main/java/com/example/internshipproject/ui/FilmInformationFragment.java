@@ -1,19 +1,13 @@
 package com.example.internshipproject.ui;
 
-import android.annotation.SuppressLint;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,23 +16,15 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
-import com.example.internshipproject.BuildConfig;
 import com.example.internshipproject.FilmPlayer;
 import com.example.internshipproject.R;
 import com.example.internshipproject.VideoListAdapter;
 import com.example.internshipproject.databinding.FragmentFilmInformationBinding;
 import com.example.internshipproject.entities.FilmDetails;
 import com.example.internshipproject.viewmodels.FilmDetailsViewModel;
-import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.ui.PlayerView;
-import com.google.android.exoplayer2.upstream.DataSource;
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
 
@@ -52,10 +38,10 @@ public class FilmInformationFragment extends Fragment implements View.OnClickLis
     private FragmentFilmInformationBinding binding;
     private FilmDetails filmDetails;
     private FilmDetailsViewModel viewModel;
-    private static boolean videoPlayerIsShowed;
+    public static boolean VIDEO_PLAYER_IS_SHOWED;
 
     private PlayerView playerView;
-    private FilmPlayer filmPlayer;
+    private  FilmPlayer filmPlayer;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -96,6 +82,7 @@ public class FilmInformationFragment extends Fragment implements View.OnClickLis
             int height = size.y;
             binding.playerView.getLayoutParams().height = height;
             binding.playerView.getLayoutParams().width = width;
+
         }
         return binding.getRoot();
     }
@@ -103,31 +90,24 @@ public class FilmInformationFragment extends Fragment implements View.OnClickLis
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        playerView = binding.playerView;
-        filmPlayer = FilmPlayer.newInstance(getActivity().getApplicationContext());
-        filmPlayer.initializePlayer();
-        playerView.setPlayer(filmPlayer.getPlayer());
-
+        initPlayerView();
         binding.descriptionDetails.setOnClickListener(this);
-        playerView.setVisibility(View.INVISIBLE);
-        //binding.backButton.setOnClickListener(v -> Navigation.findNavController(v).popBackStack());
-        if (videoPlayerIsShowed){
-            prepareScreenForFilm();
-            filmPlayer.startPlayer();
 
-        }
+
         binding.btPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!videoPlayerIsShowed){
+                if (!VIDEO_PLAYER_IS_SHOWED){
                     prepareScreenForFilm();
                 } else {
                     prepareScreenForImage();
                 }
-                videoPlayerIsShowed = !videoPlayerIsShowed;
+                VIDEO_PLAYER_IS_SHOWED = !VIDEO_PLAYER_IS_SHOWED;
             }
         });
-
+        if (filmPlayer.getPlayer() == null) {
+            filmPlayer.initializePlayer();
+        }
     }
 
     @Override
@@ -143,7 +123,7 @@ public class FilmInformationFragment extends Fragment implements View.OnClickLis
         super.onResume();
         //hideSystemUi();
         if ((Util.SDK_INT <= 23 || filmPlayer.getPlayer() == null)) {
-            filmPlayer.initializePlayer();
+           // filmPlayer.initializePlayer();
         }
     }
 
@@ -151,7 +131,7 @@ public class FilmInformationFragment extends Fragment implements View.OnClickLis
     public void onPause() {
         super.onPause();
         if (Util.SDK_INT <= 23) {
-            filmPlayer.releasePlayer();
+            //filmPlayer.releasePlayer();
         }
     }
 
@@ -162,6 +142,8 @@ public class FilmInformationFragment extends Fragment implements View.OnClickLis
             filmPlayer.releasePlayer();
         }
     }
+
+
 
     @Override
     public void onClick(View v) {
@@ -246,11 +228,24 @@ public class FilmInformationFragment extends Fragment implements View.OnClickLis
         playerView.hideController();
         binding.btPlay.setText("Show poster");
         binding.btPlay.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_image_24, 0, 0, 0);
-        binding.getRoot().setBackgroundColor(Color.BLACK);
         if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            binding.getRoot().setBackgroundColor(Color.BLACK);
             View decorView = getActivity().getWindow().getDecorView();
             int visibility = View.SYSTEM_UI_FLAG_FULLSCREEN;
             decorView.setSystemUiVisibility(visibility);
+            //decorView.setSystemUiVisibility(visibility);
+
+
+           /* int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_FULLSCREEN;
+
+            decorView.setOnSystemUiVisibilityChangeListener(
+                    new View.OnSystemUiVisibilityChangeListener() {
+                        @Override
+                        public void onSystemUiVisibilityChange(int i) {
+                            decorView.setSystemUiVisibility(uiOptions);
+                        }
+                    });*/
         }
     }
 
@@ -271,4 +266,18 @@ public class FilmInformationFragment extends Fragment implements View.OnClickLis
             decorView.setSystemUiVisibility(visibility);
         }
     }
+
+    private void initPlayerView(){
+        playerView = binding.playerView;
+        playerView.setControllerAutoShow(false);
+        playerView.setUseController(false);
+        filmPlayer = FilmPlayer.getInstance(getContext());
+        playerView.setPlayer(filmPlayer.getPlayer());
+        playerView.setVisibility(View.INVISIBLE);
+        if (VIDEO_PLAYER_IS_SHOWED){
+            prepareScreenForFilm();
+            filmPlayer.startPlayer();
+        }
+    }
+
 }
