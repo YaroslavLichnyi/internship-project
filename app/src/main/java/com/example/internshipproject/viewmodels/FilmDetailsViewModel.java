@@ -7,6 +7,9 @@ import androidx.lifecycle.ViewModel;
 import com.example.internshipproject.repository.FilmRepository;
 import com.example.internshipproject.entities.FilmDetails;
 
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+
 public class FilmDetailsViewModel extends ViewModel {
     private MutableLiveData<FilmDetails> filmDetailsLiveData;
     private MutableLiveData<String> filmDetailsLiveDataException;
@@ -17,15 +20,25 @@ public class FilmDetailsViewModel extends ViewModel {
     }
 
     public LiveData<FilmDetails> loadFilmDetailsById(String id) {
-        FilmRepository.getInstance().getFilmDetailsById(id, new FilmDetailsListener() {
+        FilmRepository.getInstance().getFilmDetailsById(id).subscribe(new Observer<FilmDetails>() {
             @Override
-            public void loadFilmDetails(FilmDetails filmDetails) {
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(FilmDetails filmDetails) {
                 filmDetailsLiveData.postValue(filmDetails);
             }
 
             @Override
-            public void notifyAboutNotSuccessfulResponse(String response) {
-                filmDetailsLiveDataException.postValue(response);
+            public void onError(Throwable e) {
+                filmDetailsLiveDataException.postValue("Error while loading data: " + e.toString());
+            }
+
+            @Override
+            public void onComplete() {
+
             }
         });
         return filmDetailsLiveData;
@@ -38,4 +51,6 @@ public class FilmDetailsViewModel extends ViewModel {
     public MutableLiveData<String> getFilmDetailsLiveDataException() {
         return filmDetailsLiveDataException;
     }
+
+
 }

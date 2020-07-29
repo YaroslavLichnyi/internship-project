@@ -3,6 +3,7 @@ package com.example.internshipproject;
 import com.example.internshipproject.entities.FilmDetails;
 import com.example.internshipproject.entities.Search;
 
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -18,7 +19,7 @@ public interface FilmInfoApiService {
      * @return POJO which was created based on JSON document.
      */
     @GET("?apikey=7e6a1464")
-    Call<Search> getFiles(@Query("s") String keyWord);
+    Observable<Search> getFiles(@Query("s") String keyWord);
 
     /**
      * Contains API for getting getting detail information about film from server using its
@@ -28,5 +29,5 @@ public interface FilmInfoApiService {
      * @return POJO which was created based on JSON document.
      */
     @GET("?apikey=7e6a1464&plot=full")
-    Call<FilmDetails> getFilmDetailInfo(@Query("i") String imdbId);
+    Observable<FilmDetails> getFilmDetailInfo(@Query("i") String imdbId);
 }

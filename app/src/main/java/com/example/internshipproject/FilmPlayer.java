@@ -1,15 +1,14 @@
 package com.example.internshipproject;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
-import android.view.View;
 
+import com.google.android.exoplayer2.ExoPlayer;
+import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
-import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
@@ -23,17 +22,40 @@ public class FilmPlayer {
     private int currentWindow = 0;
     private long playbackPosition = 0;
     private Context context;
-    private String filmUri;
+    private static String filmUri = "https://storage.googleapis.com/exoplayer-test-media-0/BigBuckBunny_320x180.mp4";;
     private static FilmPlayer filmPlayer;
 
     private FilmPlayer() {
     }
 
-    public static FilmPlayer newInstance(Context context){
+    public static FilmPlayer getInstance(Context context){
         if (filmPlayer == null){
             filmPlayer = new FilmPlayer();
             filmPlayer.context = context;
-            filmPlayer.filmUri = "https://storage.googleapis.com/exoplayer-test-media-0/BigBuckBunny_320x180.mp4";
+            filmPlayer.releasePlayer();
+            filmPlayer.initializePlayer();
+            filmPlayer.player.addListener(new ExoPlayer.EventListener(){
+                @Override
+                public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+
+                    switch(playbackState) {
+                        case Player.STATE_BUFFERING:
+                            break;
+                        case Player.STATE_ENDED:
+                            //Here you do what you want
+                            break;
+                        case Player.STATE_IDLE:
+                            break;
+                        case Player.STATE_READY:
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+        }
+        if (filmPlayer.getPlayer() == null){
+            filmPlayer.initializePlayer();
         }
         return filmPlayer;
     }
@@ -102,5 +124,9 @@ public class FilmPlayer {
 
     public void setPlayer(SimpleExoPlayer player) {
         this.player = player;
+    }
+
+    public static void cleanPlayer(){
+        filmPlayer = null;
     }
 }

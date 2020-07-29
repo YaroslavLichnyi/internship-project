@@ -18,22 +18,28 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import com.bumptech.glide.Glide;
+import com.example.internshipproject.FilmInfoApiService;
 import com.example.internshipproject.FilmPlayer;
 import com.example.internshipproject.R;
 import com.example.internshipproject.VideoListAdapter;
 import com.example.internshipproject.databinding.FragmentFilmInformationBinding;
 import com.example.internshipproject.entities.FilmDetails;
+import com.example.internshipproject.entities.Search;
 import com.example.internshipproject.viewmodels.FilmDetailsViewModel;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.util.Util;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 
 public class FilmInformationFragment extends Fragment implements View.OnClickListener {
 
     private static final String TAG = FilmInformationFragment.class.getSimpleName();
 
-    public static String DESCRIPTION = "description";
-    public static String FILM_NAME = "film name";
+    public static final String DESCRIPTION = "description";
+    public static final String FILM_NAME = "film name";
 
     private FragmentFilmInformationBinding binding;
     private FilmDetails filmDetails;
@@ -63,26 +69,17 @@ public class FilmInformationFragment extends Fragment implements View.OnClickLis
         binding = FragmentFilmInformationBinding.inflate(inflater, container, false);
         Bundle bundle = getArguments();
         if (bundle != null) {
-            viewModel
-                    .loadFilmDetailsById((String) bundle.getSerializable(VideoListAdapter.FILM_ID))
-                    .observe(getViewLifecycleOwner(), new Observer<FilmDetails>() {
-                                @Override
-                                public void onChanged(FilmDetails filmDetails) {
-                                    setFilmDetails(filmDetails);
-                                    insertDataOnScreen();
-                                }
-                            }
-                    );
+            viewModel.loadFilmDetailsById(bundle.getString(VideoListAdapter.FILM_ID));
         }
         if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            Display display = getActivity().getWindowManager().getDefaultDisplay();
             Point size = new Point();
-            display.getSize(size);
+            getActivity().getWindowManager().getDefaultDisplay().getSize(size);
             int width = size.x;
             int height = size.y;
-            binding.playerView.getLayoutParams().height = height;
-            binding.playerView.getLayoutParams().width = width;
-
+            ViewGroup.LayoutParams layoutParams = binding.playerView.getLayoutParams();
+            layoutParams.height = height;
+            layoutParams.width = width;
+            binding.playerView.setLayoutParams(layoutParams);
         }
         return binding.getRoot();
     }
@@ -113,18 +110,12 @@ public class FilmInformationFragment extends Fragment implements View.OnClickLis
     @Override
     public void onStart() {
         super.onStart();
-        if (Util.SDK_INT > 23) {
-            //filmPlayer.initializePlayer();
-        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
         //hideSystemUi();
-        if ((Util.SDK_INT <= 23 || filmPlayer.getPlayer() == null)) {
-           // filmPlayer.initializePlayer();
-        }
     }
 
     @Override
@@ -230,22 +221,13 @@ public class FilmInformationFragment extends Fragment implements View.OnClickLis
         binding.btPlay.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_image_24, 0, 0, 0);
         if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             binding.getRoot().setBackgroundColor(Color.BLACK);
-            View decorView = getActivity().getWindow().getDecorView();
-            int visibility = View.SYSTEM_UI_FLAG_FULLSCREEN;
-            decorView.setSystemUiVisibility(visibility);
-            //decorView.setSystemUiVisibility(visibility);
-
-
-           /* int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_FULLSCREEN;
-
-            decorView.setOnSystemUiVisibilityChangeListener(
-                    new View.OnSystemUiVisibilityChangeListener() {
-                        @Override
-                        public void onSystemUiVisibilityChange(int i) {
-                            decorView.setSystemUiVisibility(uiOptions);
-                        }
-                    });*/
+            getActivity().getWindow().getDecorView().setSystemUiVisibility(
+                  View.SYSTEM_UI_FLAG_LOW_PROFILE
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         }
     }
 

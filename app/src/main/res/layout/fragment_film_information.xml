@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorDarkBackground"
-    tools:context=".ui.FilmInformationFragment">
-
     <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorDarkBackground"
+        tools:context=".ui.FilmInformationFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -37,7 +34,7 @@
                 android:drawableLeft="@drawable/ic_baseline_play_arrow_24"
                 android:paddingStart="13dp"
                 android:paddingEnd="13dp"
-                android:text="Play"
+                android:text="@string/play"
                 android:textColor="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="@+id/poster_photo"
                 app:layout_constraintEnd_toStartOf="@+id/description_details"
@@ -89,7 +86,7 @@
                 android:layout_marginTop="12dp"
                 android:fontFamily="sans-serif-light"
                 android:shadowColor="#FFFFFF"
-                android:text="Year:"
+                android:text="@string/year"
                 android:textAlignment="viewEnd"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimary"
@@ -106,7 +103,7 @@
                 android:layout_marginTop="12dp"
                 android:fontFamily="sans-serif-light"
                 android:shadowColor="#FFFFFF"
-                android:text="Released:"
+                android:text="@string/released"
                 android:textAlignment="viewEnd"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimary"
@@ -122,7 +119,7 @@
                 android:layout_marginTop="12dp"
                 android:fontFamily="sans-serif-light"
                 android:shadowColor="#FFFFFF"
-                android:text="Genre:"
+                android:text="@string/genre"
                 android:textAlignment="viewEnd"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimary"
@@ -138,7 +135,7 @@
                 android:layout_marginTop="12dp"
                 android:fontFamily="sans-serif-light"
                 android:shadowColor="#FFFFFF"
-                android:text="Writer:"
+                android:text="@string/writer"
                 android:textAlignment="viewEnd"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimary"
@@ -154,7 +151,7 @@
                 android:layout_marginTop="12dp"
                 android:fontFamily="sans-serif-light"
                 android:shadowColor="#FFFFFF"
-                android:text="Director:"
+                android:text="@string/director"
                 android:textAlignment="viewEnd"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimary"
@@ -170,7 +167,7 @@
                 android:layout_marginTop="12dp"
                 android:fontFamily="sans-serif-light"
                 android:shadowColor="#FFFFFF"
-                android:text="Runtime:"
+                android:text="@string/runtime"
                 android:textAlignment="viewEnd"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimary"
@@ -195,7 +192,6 @@
                 android:id="@+id/actors_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
                 android:shadowColor="#BFBFBF"
                 android:textColor="#BCBCBC"
                 android:textSize="18sp"
@@ -270,7 +266,7 @@
                 android:layout_marginTop="12dp"
                 android:fontFamily="sans-serif-light"
                 android:shadowColor="#FFFFFF"
-                android:text="Actors:"
+                android:text="@string/actors"
                 android:textAlignment="viewEnd"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimary"
@@ -281,8 +277,9 @@
 
             <com.google.android.exoplayer2.ui.PlayerView
                 android:id="@+id/player_view"
-                android:layout_width="match_parent"
-                android:layout_height="203dp"
+                android:layout_width="0dp"
+                android:layout_height="230dp"
+                android:foregroundGravity="fill_horizontal|center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -291,4 +288,3 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
