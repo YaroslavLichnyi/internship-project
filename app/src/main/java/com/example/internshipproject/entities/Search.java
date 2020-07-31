@@ -3,7 +3,6 @@ package com.example.internshipproject.entities;
 import java.io.Serializable;
 import java.util.List;
 
-import com.example.internshipproject.entities.Film;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -12,7 +11,7 @@ public class Search implements Serializable
 
     @SerializedName("Search")
     @Expose
-    private List<Film> search = null;
+    private List<Film> filmList = null;
     @SerializedName("totalResults")
     @Expose
     private String totalResults;
@@ -20,12 +19,12 @@ public class Search implements Serializable
     @Expose
     private String response;
 
-    public List<Film> getSearch() {
-        return search;
+    public List<Film> getFilmList() {
+        return filmList;
     }
 
-    public void setSearch(List<Film> search) {
-        this.search = search;
+    public void setFilmList(List<Film> filmList) {
+        this.filmList = filmList;
     }
 
     public String getTotalResults() {

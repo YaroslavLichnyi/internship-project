@@ -1,9 +1,10 @@
-package com.example.internshipproject;
+package com.example.internshipproject.entities;
 
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
+import com.example.internshipproject.BuildConfig;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;

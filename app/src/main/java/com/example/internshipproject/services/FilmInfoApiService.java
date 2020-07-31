@@ -1,4 +1,4 @@
-package com.example.internshipproject;
+package com.example.internshipproject.services;
 
 import com.example.internshipproject.entities.FilmDetails;
 import com.example.internshipproject.entities.Search;

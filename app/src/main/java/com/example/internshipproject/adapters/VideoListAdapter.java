@@ -1,4 +1,4 @@
-package com.example.internshipproject;
+package com.example.internshipproject.adapters;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,14 +12,16 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.internshipproject.R;
 import com.example.internshipproject.databinding.ItemRecyclerViewBinding;
-import com.example.internshipproject.entities.Film;
+import com.example.internshipproject.entities.FilmInformationHolder;
+import com.example.internshipproject.entities.FilmPlayer;
 import com.example.internshipproject.ui.FilmInformationFragment;
 
 import java.util.List;
 
 public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.ViewHolder> {
-    private List<Film> filmList;
+    private List<FilmInformationHolder> filmList;
     private Context context;
     public static int sSelectedHolderPosition = -1;
     public static String FILM_ID = "FILM_ID";
@@ -35,12 +37,12 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (filmList != null) {
-            Film currentFilm = filmList.get(position);
-            holder.binding.filmTitle.setText(currentFilm.getTitle());
-            holder.binding.year.setText(currentFilm.getYear());
+            FilmInformationHolder currentFilm = filmList.get(position);
+            holder.binding.filmTitle.setText(currentFilm.getFilm().getTitle());
+            holder.binding.year.setText(currentFilm.getFilmDetails().getActors());
             Glide.
                     with(context).
-                    load(currentFilm.getPoster())
+                    load(currentFilm.getFilm().getPoster())
                     .centerCrop()
                     .into(holder.binding.imageView);
         } else {
@@ -53,7 +55,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
         return filmList != null  && filmList.size() > 0 ? filmList.size() : 0;
     }
 
-    public void setFilmList(List<Film> filmList) {
+    public void setFilmList(List<FilmInformationHolder> filmList) {
         this.filmList = filmList;
         notifyDataSetChanged();
     }
@@ -73,7 +75,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
                 FilmInformationFragment.VIDEO_PLAYER_IS_SHOWED = false;
                 sSelectedHolderPosition = getAdapterPosition();
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(FILM_ID, filmList.get(sSelectedHolderPosition).getImdbID());
+                bundle.putSerializable(FILM_ID, filmList.get(sSelectedHolderPosition).getFilm().getImdbID());
                 Navigation.findNavController(v).navigate(R.id.action_recyclerViewFragment2_to_filmInformationFragment, bundle);
             }
         }

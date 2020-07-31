@@ -4,7 +4,6 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,20 +17,13 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import com.bumptech.glide.Glide;
-import com.example.internshipproject.FilmInfoApiService;
-import com.example.internshipproject.FilmPlayer;
+import com.example.internshipproject.entities.FilmPlayer;
 import com.example.internshipproject.R;
-import com.example.internshipproject.VideoListAdapter;
+import com.example.internshipproject.adapters.VideoListAdapter;
 import com.example.internshipproject.databinding.FragmentFilmInformationBinding;
 import com.example.internshipproject.entities.FilmDetails;
-import com.example.internshipproject.entities.Search;
 import com.example.internshipproject.viewmodels.FilmDetailsViewModel;
 import com.google.android.exoplayer2.ui.PlayerView;
-import com.google.android.exoplayer2.util.Util;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 
 public class FilmInformationFragment extends Fragment implements View.OnClickListener {
@@ -106,35 +98,6 @@ public class FilmInformationFragment extends Fragment implements View.OnClickLis
             filmPlayer.initializePlayer();
         }
     }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        //hideSystemUi();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (Util.SDK_INT <= 23) {
-            //filmPlayer.releasePlayer();
-        }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (Util.SDK_INT > 23) {
-            filmPlayer.releasePlayer();
-        }
-    }
-
-
 
     @Override
     public void onClick(View v) {
@@ -249,6 +212,9 @@ public class FilmInformationFragment extends Fragment implements View.OnClickLis
         }
     }
 
+    /**
+     * Initialize player view.
+     */
     private void initPlayerView(){
         playerView = binding.playerView;
         playerView.setControllerAutoShow(false);

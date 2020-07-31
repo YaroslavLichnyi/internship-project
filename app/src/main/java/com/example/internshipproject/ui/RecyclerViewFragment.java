@@ -1,21 +1,16 @@
 package com.example.internshipproject.ui;
 
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -24,9 +19,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.internshipproject.VideoListAdapter;
+import com.example.internshipproject.adapters.VideoListAdapter;
 import com.example.internshipproject.databinding.FragmentRecyclerViewBinding;
-import com.example.internshipproject.entities.Film;
+import com.example.internshipproject.entities.FilmInformationHolder;
 import com.example.internshipproject.viewmodels.FilmListViewModel;
 
 import java.util.List;
@@ -35,7 +30,7 @@ import java.util.List;
 public class RecyclerViewFragment extends Fragment {
     private FragmentRecyclerViewBinding recyclerViewBinding;
     private FilmListViewModel viewModel;
-    private List<Film> filmList;
+    private List<FilmInformationHolder> filmList;
     private RecyclerView recyclerView;
     private VideoListAdapter adapter;
     public static int lastPosition = 0;
@@ -60,7 +55,7 @@ public class RecyclerViewFragment extends Fragment {
         recyclerViewBinding = FragmentRecyclerViewBinding.inflate(inflater, container, false);
         initRecyclerView();
         if(filmList == null){
-            viewModel.loadFilms("war");
+            viewModel.loadFilms("Avengers");
         }
         return recyclerViewBinding.getRoot();
     }
@@ -68,7 +63,6 @@ public class RecyclerViewFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //Button button = recyclerViewBinding.buttonFind;
         recyclerViewBinding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -88,17 +82,18 @@ public class RecyclerViewFragment extends Fragment {
             @Override
             public void handleOnBackPressed() {}
         });
-/*
-        recyclerViewBinding.textView.setLayoutParams(new ConstraintLayout.LayoutParams(0,0));
-        recyclerViewBinding.searchView.setLayoutParams(new ConstraintLayout.LayoutParams(
-                ConstraintLayout.LayoutParams.MATCH_PARENT,
-                40
-        ));
-
- */
     }
 
-    public void setFilmList(List<Film> filmList) {
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (adapter.sSelectedHolderPosition > 0
+                && adapter.getItemCount() > adapter.sSelectedHolderPosition){
+            recyclerView.scrollToPosition(adapter.sSelectedHolderPosition);
+        }
+    }
+
+    public void setFilmList(List<FilmInformationHolder> filmList) {
         this.filmList = filmList;
     }
 
@@ -116,7 +111,7 @@ public class RecyclerViewFragment extends Fragment {
      *  Inserts data about films into recyclerView.
      * @param films contains data that inserts into recyclerView.
      */
-    private void insertFilmsIntoRecyclerView(List<Film> films){
+    private void insertFilmsIntoRecyclerView(List<FilmInformationHolder> films){
         adapter.setFilmList(films);
         if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -133,11 +128,11 @@ public class RecyclerViewFragment extends Fragment {
     private void subscribeOnLiveData(){
         viewModel
                 .getFilmLiveData()
-                .observe(getViewLifecycleOwner(), new Observer<List<Film>>() {
+                .observe(getViewLifecycleOwner(), new Observer<List<FilmInformationHolder>>() {
                     @Override
-                    public void onChanged(List<Film> films) {
-                        setFilmList(films);
-                        insertFilmsIntoRecyclerView(films);
+                    public void onChanged(List<FilmInformationHolder> filmInformationHolders) {
+                        setFilmList(filmInformationHolders);
+                        insertFilmsIntoRecyclerView(filmInformationHolders);
                     }
                 });
     }
@@ -158,15 +153,5 @@ public class RecyclerViewFragment extends Fragment {
                                 Toast.LENGTH_LONG );
                     }
                 });
-    }
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (adapter.sSelectedHolderPosition > 0
-                && adapter.getItemCount() > adapter.sSelectedHolderPosition){
-            recyclerView.scrollToPosition(adapter.sSelectedHolderPosition);
-        }
     }
 }

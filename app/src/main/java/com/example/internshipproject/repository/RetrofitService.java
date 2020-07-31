@@ -1,11 +1,10 @@
 package com.example.internshipproject.repository;
 
-import com.example.internshipproject.FilmInfoApiService;
+import com.example.internshipproject.services.FilmInfoApiService;
 import com.example.internshipproject.entities.FilmDetails;
 import com.example.internshipproject.entities.Search;
 
 import io.reactivex.Observable;
-import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;

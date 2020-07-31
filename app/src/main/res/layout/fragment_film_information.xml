@@ -192,6 +192,7 @@
                 android:id="@+id/actors_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:shadowColor="#BFBFBF"
                 android:textColor="#BCBCBC"
                 android:textSize="18sp"

@@ -1,5 +1,7 @@
 package com.example.internshipproject.viewmodels;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -8,7 +10,9 @@ import com.example.internshipproject.repository.FilmRepository;
 import com.example.internshipproject.entities.FilmDetails;
 
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class FilmDetailsViewModel extends ViewModel {
     private MutableLiveData<FilmDetails> filmDetailsLiveData;
@@ -20,7 +24,13 @@ public class FilmDetailsViewModel extends ViewModel {
     }
 
     public LiveData<FilmDetails> loadFilmDetailsById(String id) {
-        FilmRepository.getInstance().getFilmDetailsById(id).subscribe(new Observer<FilmDetails>() {
+        Log.d("TAG", "loadFilmDetailsById: ");
+        FilmRepository
+                .getInstance()
+                .getFilmDetailsById(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<FilmDetails>() {
             @Override
             public void onSubscribe(Disposable d) {
 
