@@ -10,15 +10,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import com.example.internshipproject.databinding.FragmentFilmDetailInformationBinding;
+import com.example.internshipproject.databinding.FragmentFilmDescriptionBinding;
 
-public class FilmDetailInformationFragment extends Fragment implements View.OnClickListener {
-    private FragmentFilmDetailInformationBinding binding;
+public class FilmDescriptionFragment extends Fragment implements View.OnClickListener {
+    private FragmentFilmDescriptionBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentFilmDetailInformationBinding.inflate(inflater, container, false);
+        binding = FragmentFilmDescriptionBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         return view;
     }

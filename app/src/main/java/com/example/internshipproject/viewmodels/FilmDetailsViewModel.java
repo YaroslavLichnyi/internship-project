@@ -1,32 +1,34 @@
 package com.example.internshipproject.viewmodels;
 
-import android.util.Log;
+import android.app.Application;
 
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-import com.example.internshipproject.repository.FilmRepository;
 import com.example.internshipproject.entities.FilmDetails;
+import com.example.internshipproject.repository.FilmRepository;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class FilmDetailsViewModel extends ViewModel {
+public class FilmDetailsViewModel extends AndroidViewModel {
     private MutableLiveData<FilmDetails> filmDetailsLiveData;
     private MutableLiveData<String> filmDetailsLiveDataException;
+    private Application application;
 
-    public FilmDetailsViewModel() {
+    public FilmDetailsViewModel(Application application) {
+        super(application);
         filmDetailsLiveData = new MutableLiveData<>();
         filmDetailsLiveDataException = new MutableLiveData<>();
+        this.application = application;
     }
 
     public LiveData<FilmDetails> loadFilmDetailsById(String id) {
-        Log.d("TAG", "loadFilmDetailsById: ");
         FilmRepository
-                .getInstance()
+                .getInstance(application)
                 .getFilmDetailsById(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -1,6 +1,10 @@
 package com.example.internshipproject.entities;
 
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.io.Serializable;
 
 import com.example.internshipproject.repository.FilmRepository;
@@ -11,7 +15,14 @@ import com.google.gson.annotations.SerializedName;
  * Represents a film. Generates based on JSON document that
  * {@link FilmRepository} gets from server.
  */
+@Entity(tableName = "films")
 public class Film implements Serializable {
+
+    @SerializedName("imdbID")
+    @Expose
+    @PrimaryKey
+    @NonNull
+    private String imdbId;
 
     @SerializedName("Title")
     @Expose
@@ -21,9 +32,6 @@ public class Film implements Serializable {
     @Expose
     private String year;
 
-    @SerializedName("imdbID")
-    @Expose
-    private String imdbID;
 
     @SerializedName("Type")
     @Expose
@@ -32,8 +40,6 @@ public class Film implements Serializable {
     @SerializedName("Poster")
     @Expose
     private String poster;
-
-    private final static long serialVersionUID = 834745676111564182L;
 
     public String getTitle() {
         return title;
@@ -51,12 +57,12 @@ public class Film implements Serializable {
         this.year = year;
     }
 
-    public String getImdbID() {
-        return imdbID;
+    public String getImdbId() {
+        return imdbId;
     }
 
-    public void setImdbID(String imdbID) {
-        this.imdbID = imdbID;
+    public void setImdbId(String imdbId) {
+        this.imdbId = imdbId;
     }
 
     public String getType() {
@@ -80,7 +86,7 @@ public class Film implements Serializable {
         return "Film{" +
                 "title='" + title + '\'' +
                 ", year='" + year + '\'' +
-                ", imdbID='" + imdbID + '\'' +
+                ", imdbId='" + imdbId + '\'' +
                 ", type='" + type + '\'' +
                 ", poster='" + poster + '\'' +
                 '}';

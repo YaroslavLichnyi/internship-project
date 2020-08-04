@@ -4,9 +4,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
-import com.example.internshipproject.BuildConfig;
-import com.google.android.exoplayer2.ExoPlayer;
-import com.google.android.exoplayer2.Player;
+import androidx.viewbinding.BuildConfig;
+
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
@@ -35,25 +34,6 @@ public class FilmPlayer {
             filmPlayer.context = context;
             filmPlayer.releasePlayer();
             filmPlayer.initializePlayer();
-            filmPlayer.player.addListener(new ExoPlayer.EventListener(){
-                @Override
-                public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
-
-                    switch(playbackState) {
-                        case Player.STATE_BUFFERING:
-                            break;
-                        case Player.STATE_ENDED:
-                            //Here you do what you want
-                            break;
-                        case Player.STATE_IDLE:
-                            break;
-                        case Player.STATE_READY:
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            });
         }
         if (filmPlayer.getPlayer() == null){
             filmPlayer.initializePlayer();
@@ -91,16 +71,7 @@ public class FilmPlayer {
         return new ProgressiveMediaSource.Factory(dataSourceFactory)
                 .createMediaSource(uri);
     }
-//
-//    @SuppressLint("InlinedApi")
-//    private void hideSystemUi() {
-//        playerView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
-//                | View.SYSTEM_UI_FLAG_FULLSCREEN
-//                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-//                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-//                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-//                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-//    }
+
     /**
      * Sets player on pause.
      */

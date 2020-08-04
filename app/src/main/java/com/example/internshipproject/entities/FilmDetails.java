@@ -1,8 +1,17 @@
 package com.example.internshipproject.entities;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.SerializedName;
 
+@Entity(tableName = "film_details")
 public class FilmDetails {
+    @PrimaryKey
+    @NonNull
+    private String imdbId;
+
     @SerializedName("Title")
     private String title;
 
@@ -111,6 +120,14 @@ public class FilmDetails {
 
     public void setPlot(String plot) {
         this.plot = plot;
+    }
+
+    public String getImdbId() {
+        return imdbId;
+    }
+
+    public void setImdbId(String imdbId) {
+        this.imdbId = imdbId;
     }
 
     @Override

@@ -1,8 +1,12 @@
 package com.example.internshipproject.ui;
 
+import android.annotation.SuppressLint;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
@@ -28,13 +32,14 @@ import java.util.List;
 
 
 public class RecyclerViewFragment extends Fragment {
+    public static int lastPosition = 0;
     private FragmentRecyclerViewBinding recyclerViewBinding;
     private FilmListViewModel viewModel;
     private List<FilmInformationHolder> filmList;
     private RecyclerView recyclerView;
     private VideoListAdapter adapter;
-    public static int lastPosition = 0;
-
+    private SearchView searchView;
+    private boolean searchViewIsWide;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,24 +68,37 @@ public class RecyclerViewFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        searchView = recyclerViewBinding.searchView;
         recyclerViewBinding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 viewModel.loadFilms(query);
                 recyclerView.scrollToPosition(0);
+                shortSearchView();
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                if (!searchViewIsWide){
+                    wideSearchView();
+                }
                 return false;
             }
         });
-
         requireActivity().getOnBackPressedDispatcher().addCallback(
                 getViewLifecycleOwner(), new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {}
+        });
+        searchView.setOnTouchListener((v, event) -> {
+            wideSearchView();
+            return true;
+        });
+        recyclerViewBinding.buttonFind.setOnClickListener(v -> {
+            shortSearchView();
+            viewModel.loadFilms(String.valueOf(recyclerViewBinding.searchView.getQuery()));
+            recyclerView.scrollToPosition(0);
         });
     }
 
@@ -149,9 +167,34 @@ public class RecyclerViewFragment extends Fragment {
                     public void onChanged(String s) {
                         Toast.makeText(
                                 getContext(),
-                                "Couldn't update the film list:" + s,
-                                Toast.LENGTH_LONG );
+                                "Couldn't update the film list:" + s.toString(),
+                                Toast.LENGTH_LONG ).show();
+                        //TODO not to show the mistake
                     }
                 });
+    }
+
+    /**
+     * Makes App name not displaying what gives an opportunity for searchView to take up the
+     * whole width of the screen.
+     */
+    private void wideSearchView(){
+        ViewGroup.LayoutParams layoutParams = recyclerViewBinding.appName.getLayoutParams();
+        layoutParams.height = 0;
+        layoutParams.width = 0;
+        recyclerViewBinding.appName.setLayoutParams(layoutParams);
+        searchViewIsWide = true;
+    }
+
+    /**
+     * Makes App name's width enough for displaying it what allows searchView to take up only the
+     * rest of the screen's width.
+     */
+    private void shortSearchView(){
+        ViewGroup.LayoutParams layoutParams = recyclerViewBinding.appName.getLayoutParams();
+        layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        recyclerViewBinding.appName.setLayoutParams(layoutParams);
+        searchViewIsWide = false;
     }
 }

@@ -1,5 +1,8 @@
 package com.example.internshipproject.entities;
 
+import androidx.room.Entity;
+
+
 public class FilmInformationHolder {
     private Film film;
     private FilmDetails filmDetails;

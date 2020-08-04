@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -23,6 +24,7 @@ import com.example.internshipproject.adapters.VideoListAdapter;
 import com.example.internshipproject.databinding.FragmentFilmInformationBinding;
 import com.example.internshipproject.entities.FilmDetails;
 import com.example.internshipproject.viewmodels.FilmDetailsViewModel;
+import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.ui.PlayerView;
 
 
@@ -81,8 +83,6 @@ public class FilmInformationFragment extends Fragment implements View.OnClickLis
         super.onViewCreated(view, savedInstanceState);
         initPlayerView();
         binding.descriptionDetails.setOnClickListener(this);
-
-
         binding.btPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,6 +97,26 @@ public class FilmInformationFragment extends Fragment implements View.OnClickLis
         if (filmPlayer.getPlayer() == null) {
             filmPlayer.initializePlayer();
         }
+        filmPlayer.getPlayer().addListener(new Player.EventListener() {
+            @Override
+            public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+                if (playbackState == Player.STATE_ENDED) {
+                    prepareScreenForImage();
+                }
+            }
+        });
+        requireActivity().getOnBackPressedDispatcher().addCallback(
+                getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+                    @Override
+                    public void handleOnBackPressed() {
+                        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                            View decorView = getActivity().getWindow().getDecorView();
+                            int visibility = View.VISIBLE;
+                            decorView.setSystemUiVisibility(visibility);
+                            Navigation.findNavController(binding.getRoot()).popBackStack();
+                        }
+                    }
+                });
     }
 
     @Override
@@ -166,7 +186,7 @@ public class FilmInformationFragment extends Fragment implements View.OnClickLis
                         Toast.makeText(
                                 getContext(),
                                 "Couldn't update detail information about film:" + s,
-                                Toast.LENGTH_LONG );
+                                Toast.LENGTH_LONG ).show();
                     }
                 });
     }

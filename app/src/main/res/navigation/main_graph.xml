@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/filmDetailInformationFragment"
-        android:name="com.example.internshipproject.ui.FilmDetailInformationFragment"
+        android:name="com.example.internshipproject.ui.FilmDescriptionFragment"
         android:label="fragment_film_detail_information"
-        tools:layout="@layout/fragment_film_detail_information" />
+        tools:layout="@layout/fragment_film_description" />
 </navigation>

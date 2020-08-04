@@ -22,7 +22,7 @@
     <TextView
         android:id="@+id/year"
         android:layout_width="270dp"
-        android:layout_height="73dp"
+        android:layout_height="wrap_content"
         android:textColor="#B3B3B3"
         android:textStyle="italic"
         app:layout_constraintStart_toStartOf="@+id/film_title"
@@ -33,9 +33,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:backgroundTint="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.444"
         tools:srcCompat="@tools:sample/avatars" />
 </androidx.constraintlayout.widget.ConstraintLayout>
